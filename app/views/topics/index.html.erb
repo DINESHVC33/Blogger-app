@@ -7,7 +7,7 @@
     <%= render topic %>
     <p>
       <%= link_to "Show topic", topic %><br>
-      <%= link_to "Show topic's posts", topic_posts_path(topic) %>
+      <%= link_to "Show #{topic.title} posts", topic_posts_path(topic) %>
     </p>
   <% end %>
 </div>

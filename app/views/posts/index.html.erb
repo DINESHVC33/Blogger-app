@@ -1,0 +1,17 @@
+<h1>Posts in <%= @topic.title %> Topic</h1>
+
+<%= link_to "New Post", new_topic_post_path(@topic), class: "btn btn-primary" %>
+
+<ul>
+  <% @posts.each do |post| %>
+    <li>
+      <h3><%= post.title %></h3>
+      <p><%= post.content %></p>
+      <%= link_to "Show", topic_post_path(@topic, post), class: "btn btn-info" %>
+      <%= link_to "Edit", edit_topic_post_path(@topic, post), class: "btn btn-warning" %>
+      <%= button_to "Delete",topic_post_path(@topic, post), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "Back to Topics", topics_path, class: "btn btn-secondary" %>
