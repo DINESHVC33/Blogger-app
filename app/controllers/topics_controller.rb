@@ -5,9 +5,13 @@ class TopicsController < ApplicationController
   def index
     @topics = Topic.all
   end
-
+  def all_posts
+    @posts = Post.all
+  end
   # GET /topics/1 or /topics/1.json
   def show
+    @topic = Topic.find(params[:id])
+    # @posts = @topic.posts
   end
 
   # GET /topics/new
@@ -25,11 +29,11 @@ class TopicsController < ApplicationController
 
     respond_to do |format|
       if @topic.save
-        format.html { redirect_to topic_url(@topic), notice: "Topic was successfully created." }
-        format.json { render :show, status: :created, location: @topic }
+        format.html { redirect_to topic_url(@topic), notice: "Topic #{@topic.title} was successfully created." }
+
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @topic.errors, status: :unprocessable_entity }
+
       end
     end
   end
@@ -38,11 +42,11 @@ class TopicsController < ApplicationController
   def update
     respond_to do |format|
       if @topic.update(topic_params)
-        format.html { redirect_to topic_url(@topic), notice: "Topic was successfully updated." }
-        format.json { render :show, status: :ok, location: @topic }
+        format.html { redirect_to topic_url(@topic), notice: "Topic #{@topic.title} was successfully updated." }
+
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @topic.errors, status: :unprocessable_entity }
+
       end
     end
   end
@@ -50,21 +54,19 @@ class TopicsController < ApplicationController
   # DELETE /topics/1 or /topics/1.json
   def destroy
     @topic.destroy
-
     respond_to do |format|
-      format.html { redirect_to topics_url, notice: "Topic was successfully destroyed." }
-      format.json { head :no_content }
+      format.html { redirect_to topics_url, notice: "Topic #{@topic.title} was successfully destroyed." }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_topic
-      @topic = Topic.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_topic
+    @topic = Topic.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def topic_params
-      params.require(:topic).permit(:title)
-    end
+  # Only allow a list of trusted parameters through.
+  def topic_params
+    params.require(:topic).permit(:title)
+  end
 end
