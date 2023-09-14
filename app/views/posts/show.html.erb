@@ -1,6 +1,7 @@
 <h1><%= @post.title %></h1>
 <p><%= @post.content %></p>
 
-<%= link_to "Edit", edit_topic_post_path(@topic, @post), class: "btn btn-warning" %><br/><br>
+<%= link_to "Edit", edit_topic_post_path(@topic, @post), class: "btn btn-warning" %>
+<%= link_to "show comments" ,topic_post_comments_path(@topic,@post), class: "btn btn-info" %>
 <%= button_to "Delete", topic_post_path(@topic, @post), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %><br/>
 <%= link_to "Back to Posts", topic_posts_path(@topic), class: "btn btn-secondary" %>

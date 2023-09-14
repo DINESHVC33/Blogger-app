@@ -7,11 +7,14 @@
     <li>
       <h3><%= post.title %></h3>
       <p><%= post.content %></p>
+      <% val = post.id %>
       <%= link_to "Show", topic_post_path(@topic, post), class: "btn btn-info" %>
       <%= link_to "Edit", edit_topic_post_path(@topic, post), class: "btn btn-warning" %>
+      <%= link_to "show comments" ,topic_post_comments_path(@topic, post), class: "btn btn-warning" %>
       <%= button_to "Delete",topic_post_path(@topic, post), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
     </li>
   <% end %>
 </ul>
+
 
 <%= link_to "Back to Topics", topics_path, class: "btn btn-secondary" %>

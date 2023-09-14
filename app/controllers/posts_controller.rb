@@ -5,10 +5,12 @@ class PostsController < ApplicationController
   # GET /topics/:topic_id/posts or /topics/:topic_id/posts.json
   def index
     @posts = @topic.posts
+    @comments =Comment.where(post_id: @posts.pluck(:id))
   end
 
   # GET /topics/:topic_id/posts/1 or /topics/:topic_id/posts/1.json
   def show
+    @comment=@post.comments.build
   end
 
   # GET /topics/:topic_id/posts/new

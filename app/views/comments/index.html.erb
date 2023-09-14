@@ -1,0 +1,21 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Comments in <%= "#{@post.title}" %></h1>
+
+<div id="comments">
+<ul>
+  <% @comments.each do |comment| %>
+    <li>
+      <h3><%= comment.text %></h3>
+      <p>
+        <% link_to "Show",topic_post_comment_path(@topic,@post,comment) %>
+        <%= link_to "Edit", edit_topic_post_comment_path(@topic,@post,comment) %>
+        <%= button_to "Destroy", topic_post_comment_path(@topic,@post,comment), method: :delete %>
+      </p>
+    </li>
+  <% end %>
+</ul>
+
+
+<%= link_to "New comment", new_topic_post_comment_path %>
+<%= link_to "Back to post",topic_posts_path(@topic,@post) %>
