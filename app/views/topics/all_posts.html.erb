@@ -2,13 +2,34 @@
 
 <h1>All Posts</h1>
 
-<ul>
+<!--<ul>-->
+  <%# @posts.each do |post| %>
+<!--    <li>-->
+<!--      <h3><%#= post.title %></h3>-->
+<!--      <p><%#= post.content %></p>-->
+<!--    </li>-->
+    <%#= link_to "show comments",topic_post_comments_path(@topic,post) %>
+  <%# end %>
+<!--</ul>--> <ul>
   <% @posts.each do |post| %>
-    <li>
-      <h3><%= post.title %></h3>
-      <p><%= post.content %></p>
-    </li>
+    <div class="post">
+      <li>
+        <h3><%= post.title %></h3>
+        <p><%= post.content %></p>
+      </li>
+      <!-- Add a "Show Comments" link -->
+      <%= link_to "Show Comments", "javascript:void(0);", class: "show-comments-link", data: { target: "comments-#{post.id}" } %>
+      <!-- Display comments for the current post (hidden by default) -->
+      <ul class="comments" id="comments-<%= post.id %>">
+        <% if post.comments.present? %>
+          <% post.comments.each do |comment| %>
+            <li><%= comment.text %></li>
+          <% end %>
+        <% else %>
+          <li>No comments</li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
-</ul>
 
-<%= link_to "Back to Home",root_path %>
+  <%= link_to "Back to Home", root_path %>

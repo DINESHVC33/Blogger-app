@@ -7,6 +7,10 @@ class TopicsController < ApplicationController
   end
   def all_posts
     @posts = Post.all
+    @post = @posts.first
+    @comments = Comment.where(post_id: @post.id)
+
+    # @comments =Comment.where(post_id: @posts.pluck(:id))
   end
   # GET /topics/1 or /topics/1.json
   def show
