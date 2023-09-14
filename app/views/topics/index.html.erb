@@ -6,10 +6,10 @@
   <% @topics.each do |topic| %>
     <%= render topic %>
     <p>
-      <%= link_to "Show topic", topic %><br>
-      <%= link_to "Show #{topic.title} posts", topic_posts_path(topic) %>
+      <%= link_to "Show topic", topic %> | | <%= link_to "Show  posts", topic_posts_path(topic) %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "New topic", new_topic_path %>
+<%= link_to "New topic", new_topic_path %> <br><br>
+<%= link_to "Back to home",root_path %>
