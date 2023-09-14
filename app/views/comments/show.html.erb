@@ -4,7 +4,8 @@
 
 <div>
   <%= link_to "Edit this comment", edit_topic_post_comment_path(@comment) %> |
-  <%= link_to "Back to comments", topic_post_comments_path(@topic,@post,@comment) %>
 
   <%= button_to "Destroy this comment", topic_post_comment_path(@topic,@post,@comment), method: :delete %>
+
+  <%= link_to "Back to comments", topic_post_comments_path(@topic,@post,@comment), class: "btn btn-secondary" %>
 </div>

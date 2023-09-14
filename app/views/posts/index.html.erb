@@ -1,6 +1,6 @@
 <h1>Posts in <%= @topic.title %> Topic</h1>
 
-<%= link_to "New Post", new_topic_post_path(@topic), class: "btn btn-primary" %>
+|  <%= link_to "New Post", new_topic_post_path(@topic) %>  |
 
 <ul>
   <% @posts.each do |post| %>
@@ -8,10 +8,10 @@
       <h3><%= post.title %></h3>
       <p><%= post.content %></p>
       <% val = post.id %>
-      <%= link_to "Show", topic_post_path(@topic, post), class: "btn btn-info" %>
-      <%= link_to "Edit", edit_topic_post_path(@topic, post), class: "btn btn-warning" %>
-      <%= link_to "show comments" ,topic_post_comments_path(@topic, post), class: "btn btn-warning" %>
-      <%= button_to "Delete",topic_post_path(@topic, post), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+       |  <%= link_to "Show", topic_post_path(@topic, post) %>
+       |  <%= link_to "Edit", edit_topic_post_path(@topic, post) %>
+     | <%= link_to "show comments" ,topic_post_comments_path(@topic, post) %> |
+      <%= button_to "Delete",topic_post_path(@topic, post), method: :delete, data: { confirm: "Are you sure?" } %>
     </li>
   <% end %>
 </ul>

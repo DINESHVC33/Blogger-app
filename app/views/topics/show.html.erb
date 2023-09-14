@@ -2,10 +2,11 @@
 
 <%= render @topic %>
 
-<div>
-  <%= link_to "Edit this topic", edit_topic_path(@topic) %> |
-  <%= link_to "show posts ", topic_posts_path(@topic) %> |
-  <%= link_to "Back to topics", topics_path %>
+<div >
+ | <%= link_to "Edit this topic", edit_topic_path(@topic) %> |
+  <%= link_to "show posts ", topic_posts_path(@topic) %> |<br>
 
-  <%= button_to "Destroy this topic", @topic, method: :delete %>
+<br>
+  <%= button_to "Destroy this topic", @topic, method: :delete %><br>
+  <%= link_to "Back to topics", topics_path  ,class: "btn btn-secondary"%>
 </div>
