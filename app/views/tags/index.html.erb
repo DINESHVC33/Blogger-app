@@ -1,0 +1,14 @@
+<h1>All tags</h1>
+
+<%= link_to "New tag",new_tag_path %>
+<br>
+<ul><br>
+  <%@tags.each do |tag| %>
+    <li> <STRONG><%= link_to tag.name ,tag %></STRONG><br>
+      <%= link_to 'Edit', edit_tag_path(tag) %>
+      <%= button_to 'Delete', tag, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </li>
+  <% end %>
+
+</ul>
+<%= link_to "back to home",root_path,class: "btn btn-secondary" %>
