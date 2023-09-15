@@ -1,5 +1,11 @@
 <h1><%= @post.title %></h1>
 <p><%= @post.content %></p>
+<h2>Tags:</h2>
+<ul>
+  <% @post.tags.each do |tag| %>
+    <li><%= tag.name %></li>
+  <% end %>
+</ul>
 
 |  <%= link_to "Edit", edit_topic_post_path(@topic, @post) %>
 |  <%= link_to "show comments" ,topic_post_comments_path(@topic,@post) %>  |

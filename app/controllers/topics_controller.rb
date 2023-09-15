@@ -6,10 +6,11 @@ class TopicsController < ApplicationController
     @topics = Topic.all
   end
   def all_posts
+    @topics = Topic.all
     @posts = Post.all
     @post = @posts.first
     @comments = Comment.where(post_id: @post.id)
-
+    @tags =Tag.where(post_id: @post.id)
     # @comments =Comment.where(post_id: @posts.pluck(:id))
   end
   # GET /topics/1 or /topics/1.json

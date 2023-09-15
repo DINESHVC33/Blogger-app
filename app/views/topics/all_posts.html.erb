@@ -10,28 +10,39 @@
 <!--    </li>-->
     <%#= link_to "show comments",topic_post_comments_path(@topic,post) %>
   <%# end %>
-<!--</ul>--> <ul>
+<!--</ul>--> <ul class="list-group">
+  <% @topics.each do |topic| %>
+  <% @posts =topic.posts%>
+
   <% @posts.each do |post| %>
     <div class="post">
-      <li>
-        <h3><%= post.title %></h3>
+      <li class="list-group-item">
+        <h4>Post:</h4>
+        <%= "#{post.title} (#{post.topic.title})" %>
         <p><%= post.content %></p>
-      </li>
+      </li><li class="list-group-item">
+      <h4>Tags:</h4>
+        <% @post.tags.each do |tag| %>
+          <%= tag.name %>
+        <% end %>
+    </li>
       <!-- Add a "Show Comments" link -->
-      <% link_to "Show Comments", "javascript:void(0);", class: "show-comments-link", data: { target: "comments-#{post.id}" } %>
+      <%#= link_to "Show Comments", "javascript:void(0);", class: "show-comments-link", data: { target: "comments-#{post.id}" } %>
       <!-- Display comments for the current post (hidden by default) -->
-
-      <ul class="comments" id="comments-<%= post.id %>">
-        <h6>Comments</h6>
+      <ul class="list-group">
+      <li class="list-group-item">
+        <h4>Comments</h4>
         <% if post.comments.present? %>
           <% post.comments.each do |comment| %>
-            <li><%= comment.text %></li>
+           <%= comment.text %>
           <% end %>
         <% else %>
-          <li>No comments</li>
+          No comments
         <% end %>
+        </li>
       </ul>
+
     </div>
   <% end %>
-
+<%end %>
   <%= link_to "Back to Home", root_path ,class: "btn btn-secondary" %>

@@ -1,15 +1,27 @@
-<%= form_for [@topic, @post] do |f| %>
-  <div class="field">
+<%= form_for [@topic, @post], class: "form" do |f| %>
+  <div class="form-group">
     <%= f.label :title %>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :content %>
-    <%= f.text_area :content %>
+    <%= f.text_area :content, class: "form-control" %>
   </div>
 
-  <div class="actions">
+  <div>
+    <%= f.label :tag_ids, "Tags :" %>
+    <% Tag.all.each do |tag| %>
+
+        <%= f.check_box :tag_ids, { multiple: true, class: "form-check-input" }, tag.id, nil %>
+        <%= label_tag "post_tag_ids_#{tag.id}", tag.name, class: "form-check-label" %>
+
+    <% end %>
+  </div>
+<br>
+  <%= link_to "Create new tags", new_tag_path %>
+
+  <div class="form-actions">
     <%= f.submit "Save Post" %>
   </div>
 <% end %>

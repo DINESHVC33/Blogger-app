@@ -50,7 +50,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_143751) do
   end
 
   add_foreign_key "comments", "posts"
-  add_foreign_key "post_tags", "posts"
+  add_foreign_key :post_tags, :posts, on_delete: :cascade
   add_foreign_key "post_tags", "tags"
   add_foreign_key "posts", "topics"
 end

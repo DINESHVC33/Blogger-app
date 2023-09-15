@@ -9,12 +9,13 @@ class TagsController < ApplicationController
   end
 
   def create
-    @tag =Tag.new(tag_params)
+    @tag = Tag.new(tag_params)
+    post_page_url = params[:tag][:post_page_url]
     respond_to do |format|
       if @tag.save
-        format.html{redirect_to tags_path(@tags) ,notice: "tag is successfully created"}
+        format.html { redirect_to post_page_url, notice: 'Tag was successfully created.' }
       else
-        format.html{render :new}
+        format.html { render :new }
       end
     end
   end
@@ -24,12 +25,14 @@ class TagsController < ApplicationController
     def edit
       @tag = Tag.find(params[:id])
     end
+
   def update
+    post_page_url = params[:tag][:post_page_url]
     respond_to do |format|
       if @tag.update(tag_params)
-        format.html{ redirect_to tag_path(@tag) ,notice: "tag is successfully created"}
+        format.html { redirect_to post_page_url, notice: 'Tag was successfully updated.' }
       else
-        render :new
+        format.html { render :edit }
       end
     end
   end
@@ -40,6 +43,7 @@ class TagsController < ApplicationController
 
 
   private
+
   def set_tag
     @tag =Tag.find(params[:id])
   end
@@ -47,7 +51,4 @@ class TagsController < ApplicationController
   def tag_params
     params.require(:tag).permit(:name)
   end
-
-
-
 end
