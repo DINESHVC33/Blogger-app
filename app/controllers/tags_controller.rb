@@ -20,6 +20,7 @@ class TagsController < ApplicationController
     end
   end
   def show
+
   end
 
     def edit
@@ -40,7 +41,10 @@ class TagsController < ApplicationController
     @tag.destroy
     redirect_to tags_url ,notice: "tag deleted"
   end
-
+  def posts
+    @tag = Tag.find(params[:id])
+    @posts = @tag.posts
+  end
 
   private
 

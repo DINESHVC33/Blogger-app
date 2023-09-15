@@ -1,14 +1,17 @@
 <h1>All tags</h1>
-
-<%= link_to "New tag",new_tag_path %>
+<div class="form-group">
+  |  <%= link_to "New tag", new_tag_path %>  |
+</div>
 <br>
-<ul><br>
-  <%@tags.each do |tag| %>
-    <li> <STRONG><%= link_to tag.name ,tag %></STRONG><br>
+<ul class="list-group">
+  <% @tags.each do |tag| %>
+    <li class="list-group-item">
+      <strong><%= link_to tag.name, posts_tag_path(tag) %></strong>
+      |
       <%= link_to 'Edit', edit_tag_path(tag) %>
+      |
       <%= button_to 'Delete', tag, method: :delete, data: { confirm: 'Are you sure?' } %>
-    </li>
+    </li><br>
   <% end %>
-
 </ul>
-<%= link_to "back to home",root_path,class: "btn btn-secondary" %>
+<%= link_to "Back to home",root_path,class: "btn btn-secondary" %>

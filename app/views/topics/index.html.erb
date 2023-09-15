@@ -4,13 +4,14 @@
 
 | <%= link_to "New topic", new_topic_path %> |<br><br>
 
-<div id="topics">
+<ul class ="form-group">
+<div id="topics" class="form-group-list">
   <% @topics.each do |topic| %>
-    <%= render topic %>
+    <li>  <%= render topic %> </li>
     <p>
      | <%= link_to "Show topic", topic %> | | <%= link_to "Show  posts", topic_posts_path(topic) %> |
     </p>
   <% end %>
 </div>
-
+</ul>
  <%= link_to "Back to home",root_path ,class: "btn btn-secondary" %>

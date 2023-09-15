@@ -7,7 +7,11 @@ Rails.application.routes.draw do
       resources :comments
     end
   end
-  resources :tags
+  resources :tags do
+    member do
+      get 'posts', to: 'tags#posts', as: 'posts'
+    end
+  end
   # Defines the root path route ("/")
   # root "articles#index"
 end
