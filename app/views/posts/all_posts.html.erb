@@ -1,0 +1,26 @@
+<h1>All Posts</h1>
+
+<% @topics.each do |topic| %>
+  <% topic.posts.each do |post| %>
+    <div class="post">
+      <h3><%= post.title %>(<%= topic.title %>)</h3>
+      <p><%= post.content %></p>
+
+      <h4>Tags:</h4>
+      <ul>
+        <% post.tags.each do |tag| %>
+              <%= tag.name %>
+        <% end %>
+      </ul>
+
+     | <%= link_to "Edit", edit_topic_post_path(topic,post) %>  |
+      <%= link_to "Show Comments", topic_post_comments_path(topic,post) %>  |
+      <%= button_to "Delete", topic_post_path(topic,post), method: :delete, data: { confirm: "Are you sure?" } %>
+    </div>
+    <hr>
+  <% end %>
+<% end %>
+
+<%= paginate @posts %>
+
+<%= link_to "Back to Home", root_path, class: "btn btn-secondary" %>

@@ -43,7 +43,7 @@ class CommentsController < ApplicationController
 
   respond_to do |format|
     if @comment.save
-      format.html { redirect_to topic_post_comments_url(@topic, @post), notice: 'Comment was successfully created.' }
+      format.html { redirect_to params[:referrer] || topic_post_comments_url(@topic, @post), notice: 'Comment was successfully created.' }
     else
       format.html { render :new }
     end
@@ -56,7 +56,7 @@ end
     @post = @topic.posts.find(params[:post_id])
     respond_to do |format|
       if @comment.update(comment_params)
-        format.html { redirect_to topic_post_comment_url(@topic, @post), notice: 'Comment was successfully updated.' }
+        format.html { redirect_to params[:referrer] || topic_post_comment_url(@topic, @post), notice: 'Comment was successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -67,7 +67,7 @@ end
   def destroy
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to topic_post_comments_url(@topic, @post), notice: 'Comment was successfully destroyed.' }
+      format.html { redirect_to params[:referrer] || topic_post_comments_url(@topic, @post), notice: 'Comment was successfully destroyed.' }
     end
   end
 
@@ -87,6 +87,6 @@ end
 
   # Only allow a list of trusted parameters through.
   def comment_params
-    params.require(:comment).permit(:post_id, :text)
+    params.require(:comment).permit(:post_id,:referrer , :text)
   end
 end
