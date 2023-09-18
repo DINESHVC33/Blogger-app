@@ -2,9 +2,13 @@
 <p><%= @post.content %></p>
 <h2>Tags:</h2>
 <ul>
+  <% if @post.tags.any? %>
   <% @post.tags.each do |tag| %>
     <%= tag.name %>
   <% end %>
+    <%else %>
+       no tags
+    <%end %>
 </ul>
 
 |  <%= link_to "Edit", edit_topic_post_path(@topic, @post) %>
