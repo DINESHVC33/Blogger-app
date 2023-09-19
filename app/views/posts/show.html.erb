@@ -1,5 +1,10 @@
 <h1><%= @post.title %></h1>
 <p><%= @post.content %></p>
+<% if @post.image.attached? %>
+  <%= image_tag(@post.image, class: "image") %>
+  <%else %>
+  <strong>No images added</strong>
+<% end %>
 <h2>Tags:</h2>
 <% if @post.tags.any? %>
   <% @post.tags.each do |tag| %>
