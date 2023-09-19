@@ -5,7 +5,7 @@ class TagsController < ApplicationController
     @tags =Tag.all
   end
   def new
-     @tag =Tag.new
+    @tag =Tag.new
   end
 
   def create
@@ -23,9 +23,9 @@ class TagsController < ApplicationController
 
   end
 
-    def edit
-      @tag = Tag.find(params[:id])
-    end
+  def edit
+    @tag = Tag.find(params[:id])
+  end
 
   def update
     post_page_url = params[:tag][:post_page_url]

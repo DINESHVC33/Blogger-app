@@ -10,8 +10,22 @@
   <title>Blogger</title>
   <%= javascript_include_tag 'application', 'custom' %>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+  <style>
+      table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse; /* Added for better table appearance */
+      }
+      th, td {
+          padding: 8px; /* Added padding for cell content */
+          text-align: left; /* Align text in cells to the left */
+      }
+  </style>
+
+
 </head>
 <body>
+
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <%= link_to "Blogger", root_path, class: "navbar-brand" %>

@@ -1,20 +1,36 @@
 <h1>Posts in <%= @topic.title %> Topic</h1>
 
+
 |  <%= link_to "New Post", new_topic_post_path(@topic) %>  |
+<br>
+<br>
 
-<ul>
+<table class="table table-hover" style="width:100%;">
+  <thead> <!-- Use thead for table headers -->
+  <tr>
+    <th>Post</th>
+    <th>Description</th>
+    <th>show</th>
+    <th>Comments</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
   <% @posts.each do |post| %>
-    <li>
-      <h3><%= post.title %></h3>
-      <p><%= post.content %></p>
-      <% val = post.id %>
-       |  <%= link_to "Show", topic_post_path(@topic, post) %>
-       |  <%= link_to "Edit", edit_topic_post_path(@topic, post) %>
-     | <%= link_to "show comments" ,topic_post_comments_path(@topic, post) %> |
-      <%= button_to "Delete",topic_post_path(@topic, post), method: :delete, data: { confirm: "Are you sure?" } %>
-    </li>
-  <% end %>
-</ul>
 
+      <td><%= post.title %></td>
+      <td><%= post.content %></td>
+
+      <td> <%= link_to "Show post", topic_post_path(@topic, post) %></td>
+      <td> <%= link_to "show comments" ,topic_post_comments_path(@topic, post) %> </td>
+      <td>  <%= link_to "Edit", edit_topic_post_path(@topic, post) %></td>
+      <td><%= button_to "Delete",topic_post_path(@topic, post), method: :delete, data: { confirm: "Are you sure?" } %></td>
+      </tr>
+  <% end %>
+    </tbody>
+</table>
+<%= paginate @posts %>
 
 <%= link_to "Back to Topics", topics_path, class: "btn btn-secondary" %>

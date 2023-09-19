@@ -1,21 +1,38 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Comments in <%= "#{@post.title}" %></h1>
+<h1>Comments in <%= @post.title %></h1>
 
-|  <%= link_to "New comment", new_topic_post_comment_path %>  |
+<%= link_to "New comment", new_topic_post_comment_path(@topic, @post) %>
+<br>
+<br>
 
 <div id="comments">
-<ul>
-  <% @comments.each do |comment| %>
-    <li>
-      <h3><%= comment.text %></h3>
-      <p>
-          <% link_to "Show",topic_post_comment_path(@topic,@post,comment) %>
-        |  <%= link_to "Edit", edit_topic_post_comment_path(@topic,@post,comment) %>  |
-        <%= button_to "Destroy", topic_post_comment_path(@topic,@post,comment), method: :delete %>
-      </p>
-    </li>
-  <% end %>
-</ul>
+  <% if @comments.any? %>
+  <table style="width:100%">
+    <thead>
+    <tr>
+      <th>Comments</th>
+      <th>Show</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td><%= comment.text %></td>
+        <td><%= link_to "Show", topic_post_comment_path(@topic, @post, comment) %></td>
+        <td><%= link_to "Edit", edit_topic_post_comment_path(@topic, @post, comment) %></td>
+        <td><%= button_to "Delete", topic_post_comment_path(@topic, @post, comment), method: :delete %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <% else %>
+  No comments
+    <% end %>
+</div>
+<br>
+<%= link_to "Back to post", request.referer, class: "btn btn-secondary" %>
+
 <%# link_to "Back to post",topic_posts_path(@topic,@post), class: "btn btn-secondary" %>
-  <%= link_to "Back to post", request.referer, class: "btn btn-secondary" %>

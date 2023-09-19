@@ -4,17 +4,19 @@ class PostsController < ApplicationController
 
   # GET /topics/:topic_id/posts or /topics/:topic_id/posts.json
   def index
-    @posts = @topic.posts
+    @posts = @topic.posts.page(params[:page]).per(3)
     @comments =Comment.where(post_id: @posts.pluck(:id))
   end
 
   def all_posts
     # @topics = Topic.all.includes(posts: :tags)  # too provide all topics
-    @posts = Post.page(params[:page]).per(3)
+    @posts = Post.page(params[:page]).per(10)
   end
   # GET /topics/:topic_id/posts/1 or /topics/:topic_id/posts/1.json
   def show
-    @comment=@post.comments.build
+    @topic = Topic.find(params[:topic_id])
+    @posts = @topic.posts.find(params[:id])
+    @ratings = @post.ratings.group(:value).count
   end
 
   # GET /topics/:topic_id/posts/new
@@ -31,7 +33,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html{redirect_to params[:referrer] || topic_post_path(@topic, @post), notice: 'Post was successfully created.'}
+        format.html{redirect_to  topic_post_path(@topic, @post, notice: 'Post was successfully created.')}
       else
         format.html { render :new, status: :unprocessable_entity }
       end

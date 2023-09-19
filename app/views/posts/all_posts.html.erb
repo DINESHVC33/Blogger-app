@@ -1,25 +1,47 @@
 
+
 <h1>All Posts</h1>
+<table class="table table-hover" style="width:100%;">
+  <thead> <!-- Use thead for table headers -->
+  <tr>
+    <th>No</th>
+    <th>Post (Topic)</th>
+    <th>Description</th>
+    <th>Tags</th>
+    <th>Comments</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  </thead>
+  <tbody> <!-- Use tbody for table body -->
+  <% offset = (params[:page].to_i - 1) * @posts.current_per_page + 1 %>
+  <% offset = 1 if offset < 1 %> <!-- Ensure offset starts at 1 on the first page -->
+  <% @posts.each do |post| %>
+    <tr>
+      <td><%= offset %></td>
+      <td><%= "#{post.title} (#{post.topic.title})" %></td>
+      <td><%= post.content %></td>
+      <td>
+        <% if post.tags.any? %>
+          <% post.tags.each do |tag| %>
+            <%= tag.name %>
+          <% end %>
+        <% else %>
+          No tags added
+        <% end %>
+      </td>
+      <td><%= link_to "Show Comments", topic_post_comments_path(post.topic, post) %></td>
+      <td><%= link_to "Edit", edit_topic_post_path(post.topic, post) %></td>
+      <td>
+        <% button_to "Delete", topic_post_path(post.topic, post), method: :delete, data: { confirm: "Are you sure?" } %>
+        <%= button_to "Delete", topic_post_path(post.topic, post), method: :delete, data: { confirm: "Are you sure?", referrer: request.original_url } %>
 
-<% @posts.each do |post| %>
-  <div class="post">
-    <h3><%= post.title %> (<%= post.topic.title %>)</h3>
-    <p><%= post.content %></p>
-
-    <h4>Tags:</h4>
-    <ul>
-      <% post.tags.each do |tag| %>
-        <%= tag.name %>
-      <% end %>
-    </ul>
-
-    | <%= link_to "Edit", edit_topic_post_path(post.topic, post) %>  |
-    <%= link_to "Show Comments", topic_post_comments_path(post.topic, post) %>  |
-    <%= button_to "Delete", topic_post_path(post.topic, post), method: :delete, data: { confirm: "Are you sure?" } %>
-  </div>
-  <hr>
-<% end %>
-
+      </td>
+    </tr>
+    <% offset += 1 %>
+  <% end %>
+  </tbody>
+</table>
 <%= paginate @posts %>
 
 <%= link_to "Back to Home", root_path, class: "btn btn-secondary" %>
