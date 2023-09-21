@@ -1,4 +1,5 @@
 class TopicsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_topic, only: %i[ show edit update destroy ]
 
   # GET /topics or /topics.json

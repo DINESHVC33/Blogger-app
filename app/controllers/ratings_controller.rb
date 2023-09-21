@@ -3,6 +3,7 @@ class RatingsController < ApplicationController
   before_action :set_topic
   before_action :set_post
 
+
   def create
     @rating = @post.ratings.build(rating_params)
 

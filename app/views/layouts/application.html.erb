@@ -41,15 +41,31 @@
           <%= link_to "Topics", topics_path, class: "nav-link" %>
         </li>
         <li class="nav-item">
-          <%= link_to "Posts",all_posts_path(@posts), class: "nav-link" %>
+          <%= link_to "Posts", all_posts_path(@posts), class: "nav-link" %>
         </li>
         <li class="nav-item">
           <%= link_to "Tags", tags_path, class: "nav-link" %>
         </li>
       </ul>
+
+      <ul class="navbar-nav ml-auto"> <!-- Use ml-auto to push items to the right -->
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class: "nav-link" %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to 'Sign in', new_user_session_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Sign up', new_user_registration_path, class: "nav-link" %>
+          </li>
+        <% end %>
+      </ul>
     </div>
   </div>
 </nav>
+
 <div class="container"><br>
   <%= yield %>
 </div>

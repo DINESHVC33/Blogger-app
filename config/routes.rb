@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-
+  devise_for :users
+  #devise_for :users, controllers: { sessions: 'users/sessions' }
   get'/posts' , to: 'posts#all_posts' , as: 'all_posts'
-  root  to:'main#index'
+  root  to:'home#index'
   resources :topics do
     resources :posts do
       resources :comments
