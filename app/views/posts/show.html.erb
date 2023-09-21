@@ -5,6 +5,7 @@
   <%else %>
   <strong>No images added</strong>
 <% end %>
+<br><br>
 <h2>Tags:</h2>
 <% if @post.tags.any? %>
   <% @post.tags.each do |tag| %>
@@ -33,7 +34,8 @@
   <%= f.radio_button :value, 5 %> 5 Stars
   <%= f.submit "Submit Rating" %>
 <% end %>
-|  <%= link_to "Edit", edit_topic_post_path(@topic, @post) %>
-|  <%= link_to "show comments" ,topic_post_comments_path(@topic,@post) %>  |
+<br>
+|  <%= link_to "Edit", edit_topic_post_path(@topic, @post) %> |
+|  <%= link_to "show comments" ,topic_post_comments_path(@topic,@post)  %>  |
 <%= button_to "Delete", topic_post_path(@topic, @post), method: :delete, data: { confirm: "Are you sure?" } %><br/>
 <%= link_to "Back", topic_posts_path(@topic, @post), class: "btn btn-secondary" %>
