@@ -3,7 +3,9 @@
 <%= render @comment %>
 
 <div>
-  <%= link_to "Edit this comment", edit_topic_post_comment_path(@comment) %> |
+  <% if can? :edit, @comment %>
+    <%= link_to 'Edit comment', edit_topic_post_comment_path(@topic,@post,@comment) %>
+  <% end %>
 
   <%= button_to "Destroy this comment", topic_post_comment_path(@topic,@post,@comment), method: :delete %>
 

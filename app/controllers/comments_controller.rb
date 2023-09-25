@@ -2,6 +2,8 @@ class CommentsController < ApplicationController
   before_action :set_topic
   before_action :set_post
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  include CanCan::ControllerAdditions
+  load_and_authorize_resource
   # GET /comments or /comments.json
   def index
     @topic =Topic.find(params[:topic_id])
@@ -37,9 +39,13 @@ class CommentsController < ApplicationController
   #   end
   # end
   def create
+  # @topic = Topic.find(params[:topic_id])
+  # @post = @topic.posts.find(params[:post_id])
+  # @comment = @post.comments.new(comment_params)
   @topic = Topic.find(params[:topic_id])
   @post = @topic.posts.find(params[:post_id])
-  @comment = @post.comments.new(comment_params)
+  @comment = @post.comments.build(comment_params)
+  @comment.user = current_user
 
   respond_to do |format|
     if @comment.save
@@ -65,6 +71,7 @@ end
 
   # DELETE /comments/1 or /comments/1.json
   def destroy
+
     @comment.destroy
     respond_to do |format|
       format.html { redirect_to params[:referrer] || topic_post_comments_url(@topic, @post), notice: 'Comment was successfully destroyed.' }

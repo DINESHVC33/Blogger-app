@@ -1,8 +1,9 @@
 class PostsController < ApplicationController
+  include CanCan::ControllerAdditions
+  load_and_authorize_resource
   before_action :authenticate_user!
   before_action :set_topic ,except: :all_posts
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-
   # GET /topics/:topic_id/posts or /topics/:topic_id/posts.json
   def index
     @posts = @topic.posts.page(params[:page]).per(3)
@@ -27,10 +28,14 @@ class PostsController < ApplicationController
 
   # GET /topics/:topic_id/posts/1/edit
   def edit
+
   end
 
   def create
-    @post = @topic.posts.new(post_params)
+    #@post = @topic.posts.new(post_params)
+    @topic = Topic.find(params[:topic_id]) # Assuming you already have this line to set the topic
+    @post = @topic.posts.build(post_params)
+    @post.user = current_user
 
     respond_to do |format|
       if @post.save
@@ -54,6 +59,7 @@ class PostsController < ApplicationController
 
   # DELETE /topics/:topic_id/posts/1 or /topics/:topic_id/posts/1.json
   def destroy
+    @post.ratings.destroy_all
     @post.tags.clear
     @post.destroy
 
@@ -69,7 +75,8 @@ class PostsController < ApplicationController
   end
 
   def set_post
-    @post = @topic.posts.find(params[:id])
+    # @post = @topic.posts.find(params[:id])
+     @post = Post.find(params[:id])
   end
   # Only allow a list of trusted parameters through.
   def post_params

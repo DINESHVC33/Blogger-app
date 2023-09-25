@@ -12,6 +12,7 @@
     <thead>
     <tr>
       <th>Comments</th>
+      <th>User email</th>
       <th>Show</th>
       <th>Edit</th>
       <th>Delete</th>
@@ -20,7 +21,8 @@
     <tbody>
     <% @comments.each do |comment| %>
       <tr>
-        <td><%= comment.text %></td>
+        <td><%= comment.text %> </td>
+        <td><%= comment.user.present? ? comment.user.email : 'No user id' %></td>
         <td><%= link_to "Show", topic_post_comment_path(@topic, @post, comment) %></td>
         <td><%= link_to "Edit", edit_topic_post_comment_path(@topic, @post, comment) %></td>
         <td><%= button_to "Delete", topic_post_comment_path(@topic, @post, comment), method: :delete %></td>

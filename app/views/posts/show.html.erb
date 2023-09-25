@@ -1,5 +1,8 @@
 <h1><%= @post.title %></h1>
 <p><%= @post.content %></p>
+<p><strong>user email : </strong><%= @post.user.present? ? @post.user.email : 'No user id' %></p>
+
+
 <% if @post.image.attached? %>
   <%= image_tag(@post.image, class: "image") %>
   <%else %>
@@ -35,7 +38,9 @@
   <%= f.submit "Submit Rating" %>
 <% end %>
 <br>
-|  <%= link_to "Edit", edit_topic_post_path(@topic, @post) %> |
+<% if can? :edit, @post %>
+  |  <%= link_to 'Edit Post', edit_topic_post_path(@post) %>  |
+<% end %>
 |  <%= link_to "show comments" ,topic_post_comments_path(@topic,@post)  %>  |
 <%= button_to "Delete", topic_post_path(@topic, @post), method: :delete, data: { confirm: "Are you sure?" } %><br/>
 <%= link_to "Back", topic_posts_path(@topic, @post), class: "btn btn-secondary" %>
