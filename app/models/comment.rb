@@ -1,5 +1,4 @@
 class Comment < ApplicationRecord
-  belongs_to :post
-  # belongs_to :topic
+  belongs_to :post ,dependent: :destroy
   has_one :topic, through: :post
 end
