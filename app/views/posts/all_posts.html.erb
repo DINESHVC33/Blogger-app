@@ -7,6 +7,8 @@
     <th>No</th>
     <th>Post (Topic)</th>
     <th>Description</th>
+    <th>Average Rating</th>
+    <th>comments count</th>
     <th>Tags</th>
     <th>Comments</th>
     <th>Edit</th>
@@ -21,6 +23,8 @@
       <td><%= offset %></td>
       <td><%= "#{post.title} (#{post.topic.title})" %></td>
       <td><%= post.content %></td>
+      <td><%= post.average_rating.present? ? "#{sprintf('%.1f', post.average_rating)} stars" : 'N/A' %></td>
+      <td><%= post.comments_count %></td>
       <td>
         <% if post.tags.any? %>
           <% post.tags.each do |tag| %>

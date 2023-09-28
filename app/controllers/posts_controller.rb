@@ -8,11 +8,14 @@ class PostsController < ApplicationController
   def index
     @posts = @topic.posts.page(params[:page]).per(3)
     @comments =Comment.where(post_id: @posts.pluck(:id))
+    @average_ratings = Hash[Rating.group(:post_id).average(:value).map { |k, v| [k, v.round(1)] }]
   end
 
   def all_posts
-    # @topics = Topic.all.includes(posts: :tags)  # too provide all topics
-    @posts = Post.page(params[:page]).per(10)
+    @posts = Post.left_joins(:ratings, :comments)
+                   .select('posts.*, AVG(ratings.value) as average_rating, COUNT(comments.id) as comments_count')
+                   .group('posts.id')
+                   .page(params[:page]).per(10)
   end
   # GET /topics/:topic_id/posts/1 or /topics/:topic_id/posts/1.json
   def show

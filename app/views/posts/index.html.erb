@@ -10,6 +10,8 @@
   <tr>
     <th>Post</th>
     <th>Description</th>
+    <th>Average Rating</th>
+    <th>Comments count</th>
     <th>show</th>
     <th>Comments</th>
     <th>Edit</th>
@@ -22,9 +24,10 @@
 
       <td><%= post.title %></td>
       <td><%= post.content %></td>
-
-      <td> <%= link_to "Show post", topic_post_path(@topic, post) %></td>
-      <td> <%= link_to "show comments" ,topic_post_comments_path(@topic, post) %> </td>
+      <td><%= @average_ratings[post.id].present? ? "#{sprintf('%.1f', @average_ratings[post.id])} stars" : 'N/A' %></td>
+      <td><%= @comments.where(post_id: post.id).count %></td>
+      <td> <%= link_to "Show ", topic_post_path(@topic, post) %></td>
+      <td> <%= link_to "show " ,topic_post_comments_path(@topic, post) %> </td>
       <td>  <%= link_to "Edit", edit_topic_post_path(@topic, post) %></td>
       <td><%= button_to "Delete",topic_post_path(@topic, post), method: :delete, data: { confirm: "Are you sure?" } %></td>
       </tr>
