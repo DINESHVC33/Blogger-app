@@ -39,8 +39,8 @@
 <% end %>
 <br>
 <% if can? :edit, @post %>
-  |  <%= link_to 'Edit Post', edit_topic_post_path(@post) %>  |
+  |  <%= link_to 'Edit Post', edit_topic_post_path(@topic,@post) %>  |
 <% end %>
 |  <%= link_to "show comments" ,topic_post_comments_path(@topic,@post)  %>  |
-<%= button_to "Delete", topic_post_path(@topic, @post), method: :delete, data: { confirm: "Are you sure?" } %><br/>
+<%= button_to "Delete", topic_posts_path(@topic), method: :delete, data: { confirm: "Are you sure?" } %><br/>
 <%= link_to "Back", topic_posts_path(@topic, @post), class: "btn btn-secondary" %>

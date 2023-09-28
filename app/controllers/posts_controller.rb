@@ -39,7 +39,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html{redirect_to  topic_post_path(@topic, @post, notice: 'Post was successfully created.')}
+        format.html{redirect_to  topic_post_path(@topic, @post), notice: 'Post was successfully created.'}
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -64,7 +64,7 @@ class PostsController < ApplicationController
     @post.destroy
 
     respond_to do |format|
-      format.html { redirect_to  request.referer || topic_posts_url(@topic), notice: "Post was successfully destroyed." }
+      format.html { redirect_to  request.referer || topic_posts_path(@topic), notice: "Post was successfully destroyed." }
     end
   end
 
