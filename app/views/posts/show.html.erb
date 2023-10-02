@@ -1,6 +1,32 @@
 <h1><%= @post.title %></h1>
 <p><%= @post.content %></p>
 <p><strong>user email : </strong><%= @post.user.present? ? @post.user.email : 'No user id' %></p>
+<!-- Include the script for AJAX call -->
+<!-- Include the script for AJAX call -->
+<script>
+    $(document).ready(function() {
+        // Check if the user is logged in
+        var loggedIn = <%= user_signed_in? %>;
+
+        // Make an AJAX call to mark the post as read if the user is logged in
+        if (loggedIn) {
+            $.ajax({
+                url: "/posts/<%= @post.id %>/mark_as_read",
+                type: "PATCH",
+                success: function(response) {
+                    console.log("Post marked as read");
+                    // You can update the UI as needed
+                },
+                error: function(error) {
+                    console.error("Error marking post as read");
+                }
+            });
+        }
+    });
+</script>
+
+<!-- Display read/unread status -->
+<p><strong>Status:</strong> <%= @post.marked_as_read?(current_user) ? 'Read' : 'Unread' %></p>
 
 
 <% if @post.image.attached? %>

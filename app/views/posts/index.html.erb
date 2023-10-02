@@ -10,6 +10,7 @@
   <tr>
     <th>Post</th>
     <th>Description</th>
+    <th>Status</th>
     <th>Average Rating</th>
     <th>Comments count</th>
     <th>show</th>
@@ -24,6 +25,7 @@
 
       <td><%= post.title %></td>
       <td><%= post.content %></td>
+      <td><%= post.marked_as_read?(current_user) ? 'Read' : 'Unread' %></td>
       <td><%= @average_ratings[post.id].present? ? "#{sprintf('%.1f', @average_ratings[post.id])} stars" : 'N/A' %></td>
       <td><%= @comments.where(post_id: post.id).count %></td>
       <td> <%= link_to "Show ", topic_post_path(@topic, post) %></td>

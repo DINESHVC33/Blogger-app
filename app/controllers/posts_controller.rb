@@ -17,10 +17,20 @@ class PostsController < ApplicationController
                    .group('posts.id')
                    .page(params[:page]).per(10)
   end
+
+  def mark_as_read
+    @post = Post.find(params[:id])
+    current_user.read_posts << @post
+    head :ok
+  end
   # GET /topics/:topic_id/posts/1 or /topics/:topic_id/posts/1.json
   def show
     @topic = Topic.find(params[:topic_id])
     @posts = @topic.posts.find(params[:id])
+    if user_signed_in? && !@post.marked_as_read?(current_user)
+      # Mark the post as read
+      @post.mark_as_read(current_user)
+    end
     @ratings = @post.ratings.group(:value).count
   end
 

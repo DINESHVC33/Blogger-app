@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   root  to:'home#index'
   resources :topics do
     resources :posts do
+      patch 'mark_as_read', on: :member
       resources :comments
       resources :ratings, only: [:create]
     end

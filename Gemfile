@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.2.2'
 gem 'devise'
 gem 'kaminari'
-gem 'strong_migrations'
+gem 'strong_migrations', '~> 0.8'
 gem 'cancancan'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "home"
 gem 'rails', '~> 7.0.7', '>= 7.0.7.2'
