@@ -1,8 +1,7 @@
 <h1><%= @post.title %></h1>
 <p><%= @post.content %></p>
 <p><strong>user email : </strong><%= @post.user.present? ? @post.user.email : 'No user id' %></p>
-<!-- Include the script for AJAX call -->
-<!-- Include the script for AJAX call -->
+
 <script>
     $(document).ready(function() {
         // Check if the user is logged in
@@ -10,9 +9,14 @@
 
         // Make an AJAX call to mark the post as read if the user is logged in
         if (loggedIn) {
+            var csrfToken = $('meta[name=csrf-token]').attr('content');
+
             $.ajax({
-                url: "/posts/<%= @post.id %>/mark_as_read",
+                url: "/topics/<%= @topic.id %>/posts/<%= @post.id %>/mark_as_read",
                 type: "PATCH",
+                headers: {
+                    'X-CSRF-Token': csrfToken
+                },
                 success: function(response) {
                     console.log("Post marked as read");
                     // You can update the UI as needed

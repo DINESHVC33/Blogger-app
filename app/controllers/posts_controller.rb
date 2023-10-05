@@ -20,8 +20,11 @@ class PostsController < ApplicationController
 
   def mark_as_read
     @post = Post.find(params[:id])
-    current_user.read_posts << @post
-    head :ok
+    @post.mark_as_read(current_user) if user_signed_in?
+
+    respond_to do |format|
+      format.js
+    end
   end
   # GET /topics/:topic_id/posts/1 or /topics/:topic_id/posts/1.json
   def show
