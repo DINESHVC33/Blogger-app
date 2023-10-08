@@ -1,4 +1,4 @@
-<%= form_for [@topic, @post], class: "form" do |form| %>
+<%= form_with(model: [@topic, @post], id: 'form', remote: true, html: { onsubmit: 'submitForm(); return false;' }) do |form| %>
   <%= hidden_field_tag :referrer, request.referer %>
   <div class="form-group">
     <%= form.label :title %>
@@ -10,21 +10,42 @@
     <%= form.text_area :content, class: "form-control" %>
   </div>
 
- <%=render "image_preview", form: form,post: @post%>
+  <%= render "image_preview", form: form, post: @post %>
 
   <div>
     <%= form.label :tag_ids, "Tags :" %>
     <% Tag.all.each do |tag| %>
-
-        <%= form.check_box :tag_ids, { multiple: true, class: "form-check-input" }, tag.id, nil %>
-        <%= label_tag "post_tag_ids_#{tag.id}", tag.name, class: "form-check-label" %>
-
+      <%= form.check_box :tag_ids, { multiple: true, class: "form-check-input" }, tag.id, nil %>
+      <%= label_tag "post_tag_ids_#{tag.id}", tag.name, class: "form-check-label" %>
     <% end %>
   </div>
-<br>
+  <br>
   <%= link_to "Create new tags", new_tag_path %>
 
   <div class="form-actions">
     <%= form.submit "Save Post" %>
   </div>
 <% end %>
+
+<script>
+    function submitForm() {
+        var csrfToken = $('meta[name=csrf-token]').attr('content');
+        var formData = $('#form').serialize();  // Serialize the form data
+
+        $.ajax({
+            url: "/topics/<%= @topic.id %>/posts",
+            type: "POST",
+            headers: {
+                'X-CSRF-Token': csrfToken
+            },
+            data: formData,  // Include the serialized form data
+            success: function(response) {
+                console.log("Prodcut is created");
+                window.location.href = "<%= topic_posts_path(@topic) %>";
+            },
+            error: function(error) {
+                console.error("Error marking post as read");
+            }
+        });
+    }
+</script>

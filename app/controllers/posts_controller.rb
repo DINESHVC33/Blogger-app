@@ -13,9 +13,9 @@ class PostsController < ApplicationController
 
   def all_posts
     @posts = Post.left_joins(:ratings, :comments)
-                   .select('posts.*, AVG(ratings.value) as average_rating, COUNT(comments.id) as comments_count')
-                   .group('posts.id')
-                   .page(params[:page]).per(10)
+                 .select('posts.*, AVG(ratings.value) as average_rating, COUNT(comments.id) as comments_count')
+                 .group('posts.id')
+                 .page(params[:page]).per(10)
   end
 
   def mark_as_read
@@ -40,6 +40,7 @@ class PostsController < ApplicationController
   # GET /topics/:topic_id/posts/new
   def new
     @post = @topic.posts.new
+
   end
 
   # GET /topics/:topic_id/posts/1/edit
@@ -55,9 +56,12 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html{redirect_to  topic_post_path(@topic, @post), notice: 'Post was successfully created.'}
+        format.js
+        format.html{redirect_to  topic_posts_path(@topic, @post), notice: 'Post was successfully created.'}
+
       else
         format.html { render :new, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -83,7 +87,6 @@ class PostsController < ApplicationController
       format.html { redirect_to  request.referer || topic_posts_path(@topic), notice: "Post was successfully destroyed." }
     end
   end
-
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_topic
@@ -92,11 +95,11 @@ class PostsController < ApplicationController
 
   def set_post
     # @post = @topic.posts.find(params[:id])
-     @post = Post.find(params[:id])
+    @post = Post.find(params[:id])
   end
   # Only allow a list of trusted parameters through.
   def post_params
-    params.require(:post).permit(:title, :content, :topic_id, :referrer,:image, tag_ids: [])
+    params.require(:post).permit(:title, :content, :topic_id,:user_id , :referrer,:image, tag_ids: [])
   end
 
 end

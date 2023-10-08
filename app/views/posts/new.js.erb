@@ -1,0 +1,8 @@
+<% if @post.errors.any? %>
+// Handle errors, for example, display them in an alert
+alert("Post creation failed: <%= j @post.errors.full_messages.join(', ') %>");
+<% else %>
+// Handle successful creation, for example, display a success message
+alert("Post created successfully");
+// You can also redirect or perform other actions here
+<% end %>
