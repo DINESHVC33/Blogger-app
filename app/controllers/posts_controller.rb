@@ -56,9 +56,9 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.js
-        format.html{redirect_to  topic_posts_path(@topic, @post), notice: 'Post was successfully created.'}
 
+        format.html{redirect_to  topic_posts_path(@topic, @post), notice: 'Post was successfully created.'}
+        format.js
       else
         format.html { render :new, status: :unprocessable_entity }
         format.js

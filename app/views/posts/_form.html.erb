@@ -40,8 +40,9 @@
             },
             data: formData,  // Include the serialized form data
             success: function(response) {
-                console.log("Prodcut is created");
                 window.location.href = "<%= topic_posts_path(@topic) %>";
+                console.log("Post is created");
+
             },
             error: function(error) {
                 console.error("Error marking post as read");
