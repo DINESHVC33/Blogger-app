@@ -5,6 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.2.2'
 gem 'devise'
+gem 'devise-token_authenticatable'
 gem 'kaminari'
 gem 'strong_migrations', '~> 0.8'
 gem 'cancancan'

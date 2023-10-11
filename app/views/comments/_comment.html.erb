@@ -1,12 +1,13 @@
-<div id="<%= dom_id comment %>">
-  <p>
-    <strong>Text:</strong>
-    <%= comment.text %>
-  </p>
-
-  <p>
-    <strong>Post:</strong>
-    <%= @post.title %>
-  </p>
-
-</div>
+<% if comment.present? %>
+  <div id="<%= dom_id comment %>">
+    <p>
+      <%= puts "Comment: #{comment.inspect}" %>
+      <strong>Text:</strong>
+      <%= comment.text %>
+      <%= button_to "Rate", rate_topic_post_comment_path(@topic, @post, comment), method: :post, remote: true, class: 'rate-comment-button' %>
+    </p>
+  </div>
+<% else %>
+  <p>Comment not available</p>
+  <%= puts "Comment: #{comment.inspect}" %>
+<% end %>

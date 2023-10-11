@@ -1,3 +1,7 @@
+<%= content_for :head do %>
+  <%= javascript_import_module_tag "rate" %>
+<% end %>
+
 <p style="color: green"><%= notice %></p>
 
 <h1>Comments in <%= @post.title %></h1>
@@ -13,6 +17,7 @@
     <tr>
       <th>Comments</th>
       <th>User email</th>
+      <th>Rate</th>
       <th>Show</th>
       <th>Edit</th>
       <th>Delete</th>
@@ -21,8 +26,10 @@
     <tbody>
     <% @comments.each do |comment| %>
       <tr>
-        <td><%= comment.text %> </td>
+        <td><%= comment.text %>
+          <%= button_to "Rate", rate_topic_post_comment_path(@topic, @post, comment), method: :post, remote: true, class: 'rate-comment-button' %></td>
         <td><%= comment.user.present? ? comment.user.email : 'No user id' %></td>
+        <td><%= button_to "Rate", rate_topic_post_comment_path(@topic, @post,comment), method: :post, remote: true %></td>
         <td><%= link_to "Show", topic_post_comment_path(@topic, @post, comment) %></td>
         <td><%= link_to "Edit", edit_topic_post_comment_path(@topic, @post, comment) %></td>
         <td><%= button_to "Delete", topic_post_comment_path(@topic, @post, comment), method: :delete %></td>

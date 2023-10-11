@@ -1,0 +1,7 @@
+<h1>Ratings for Comment</h1>
+<ul>
+  <% @comment.user_comment_ratings.each do |rating| %>
+    <li><%= rating.user.email %> rated <%= rating.rating %> stars</li>
+  <% end %>
+</ul>
+<%= link_to "Back to Comments", topic_post_comments_path(@topic, @post), class: "btn btn-secondary" %>

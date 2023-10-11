@@ -1,10 +1,12 @@
 class TopicsController < ApplicationController
+  #skip_before_action :verify_authenticity_token
   before_action :authenticate_user!
   before_action :set_topic, only: %i[ show edit update destroy ]
 
   # GET /topics or /topics.json
   def index
     @topics = Topic.all
+    #render json: @topics
   end
   def all_posts
     @topics = Topic.all
@@ -17,6 +19,7 @@ class TopicsController < ApplicationController
   # GET /topics/1 or /topics/1.json
   def show
     @topic = Topic.find(params[:id])
+    #render json: @topic
     # @posts = @topic.posts
   end
 
@@ -33,13 +36,12 @@ class TopicsController < ApplicationController
   def create
     @topic = Topic.new(topic_params)
 
-    respond_to do |format|
+     respond_to do |format|
       if @topic.save
         format.html { redirect_to topic_url(@topic), notice: "Topic #{@topic.title} was successfully created." }
-
+        #render json: @topic, status: :created
       else
-        format.html { render :new, status: :unprocessable_entity }
-
+        #render json: @topic.errors, status: :unprocessable_entity
       end
     end
   end
@@ -49,9 +51,11 @@ class TopicsController < ApplicationController
     respond_to do |format|
       if @topic.update(topic_params)
         format.html { redirect_to topic_url(@topic), notice: "Topic #{@topic.title} was successfully updated." }
+        #render json: @topic, status: :ok
 
       else
         format.html { render :edit, status: :unprocessable_entity }
+        # render json: @topic.errors, status: :unprocessable_entity
 
       end
     end
@@ -63,6 +67,7 @@ class TopicsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to topics_url, notice: "Topic #{@topic.title} was successfully destroyed." }
     end
+    #render json: { head: :no_content }
   end
 
   private
@@ -73,6 +78,6 @@ class TopicsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def topic_params
-    params.require(:topic).permit(:title)
+    params.require(:topic).permit(:title,:user_id)
   end
 end

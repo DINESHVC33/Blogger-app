@@ -7,6 +7,8 @@
     <%= link_to 'Edit comment', edit_topic_post_comment_path(@topic,@post,@comment) %>
   <% end %>
 
+  <%= link_to "View Ratings", comment_ratings_topic_post_comment_path(@topic, @post,@comment), class: "btn btn-info" %>
+
   <%= button_to "Destroy this comment", topic_post_comment_path(@topic,@post,@comment), method: :delete %>
 
   <%= link_to "Back to comments", topic_post_comments_path(@topic,@post,@comment), class: "btn btn-secondary" %>

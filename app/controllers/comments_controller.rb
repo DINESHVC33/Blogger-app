@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_topic
   before_action :set_post
-  before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  before_action :set_comment, only: [:show, :edit, :update, :destroy,:rate]
   include CanCan::ControllerAdditions
   load_and_authorize_resource
   # GET /comments or /comments.json
@@ -20,7 +20,15 @@ class CommentsController < ApplicationController
   def new
     @comment = @post.comments.new
   end
-
+  def ratings
+    @comment = Comment.find(params[:id])
+  end
+  def rate
+    rating_value = params[:rating]
+    respond_to do |format|
+      format.js
+    end
+  end
   # GET /comments/1/edit
   def edit
   end
