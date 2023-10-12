@@ -3,14 +3,13 @@ class RatingsController < ApplicationController
   before_action :set_topic
   before_action :set_post
 
-
   def create
     @rating = @post.ratings.build(rating_params)
 
     if @rating.save
       redirect_to topic_post_path(@topic, @post), notice: "Rating was successfully created."
     else
-      redirect_to topic_post_path(@topic, @post), alert: "Failed to create rating."
+      redirect_to  topic_post_path(@topic, @post), alert: "Failed to create rating."
     end
   end
 

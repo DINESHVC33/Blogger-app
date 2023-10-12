@@ -1,7 +1,6 @@
 class PostsController < ApplicationController
   include CanCan::ControllerAdditions
   load_and_authorize_resource
-  before_action :authenticate_user!
   before_action :set_topic ,except: :all_posts
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   # GET /topics/:topic_id/posts or /topics/:topic_id/posts.json
@@ -13,7 +12,7 @@ class PostsController < ApplicationController
 
   def all_posts
     @posts = Post.left_joins(:ratings, :comments)
-                 .select('posts.*, AVG(ratings.value) as average_rating, COUNT(comments.id) as comments_count')
+                 .select('posts.*, AVG(user_comment_ratings.value) as average_rating, COUNT(comments.id) as comments_count')
                  .group('posts.id')
                  .page(params[:page]).per(10)
   end

@@ -23,7 +23,7 @@ RSpec.describe Post, type: :model do
       expect(check.macro).to eq(:has_many)
     end
 
-    it "has many ratings" do
+    it "has many user_comment_ratings" do
       check = described_class.reflect_on_association(:ratings)
       expect(check.macro).to eq(:has_many)
     end

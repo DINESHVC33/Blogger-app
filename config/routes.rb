@@ -7,8 +7,7 @@ Rails.application.routes.draw do
     resources :posts do
       patch 'mark_as_read', on: :member
       resources :comments do
-        post 'rate', on: :member
-        get 'ratings', on: :member, as: 'comment_ratings'
+        resources :user_comment_ratings
       end
       resources :ratings, only: [:create]
     end

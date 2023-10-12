@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
   #skip_before_action :verify_authenticity_token
-  before_action :authenticate_user!
+
   before_action :set_topic, only: %i[ show edit update destroy ]
 
   # GET /topics or /topics.json

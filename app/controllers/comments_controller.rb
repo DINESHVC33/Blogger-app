@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_topic
   before_action :set_post
-  before_action :set_comment, only: [:show, :edit, :update, :destroy,:rate]
+  before_action :set_comment, only: [:show, :edit, :update, :destroy]
   include CanCan::ControllerAdditions
   load_and_authorize_resource
   # GET /comments or /comments.json
@@ -9,11 +9,12 @@ class CommentsController < ApplicationController
     @topic =Topic.find(params[:topic_id])
     @post=@topic.posts.find(params[:post_id])
     @comments=@post.comments
+    @ratings = Comment.joins(:user_comment_ratings).distinct
   end
 
   # GET /comments/1 or /comments/1.json
   def show
-
+     @ratings = @comment.user_comment_ratings
   end
 
   # GET /comments/new
@@ -22,12 +23,7 @@ class CommentsController < ApplicationController
   end
   def ratings
     @comment = Comment.find(params[:id])
-  end
-  def rate
-    rating_value = params[:rating]
-    respond_to do |format|
-      format.js
-    end
+    @ratings = @comment.user_comment_ratings
   end
   # GET /comments/1/edit
   def edit
