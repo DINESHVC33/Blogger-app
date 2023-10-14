@@ -1,6 +1,15 @@
 
-
 <h1>All Posts</h1>
+<%= form_tag(all_posts_path, method: :get) do %>
+  <%= label_tag 'From Date:' %>
+  <%= date_field_tag 'from_date', params[:from_date] %>
+
+  <%= label_tag 'To Date:' %>
+  <%= date_field_tag 'to_date', params[:to_date] %>
+
+  <%= submit_tag 'Show Details' %>
+<% end %>
+
 <table class="table table-hover" style="width:100%;">
   <thead> <!-- Use thead for table headers -->
   <tr>
@@ -8,6 +17,7 @@
     <th>Post (Topic)</th>
     <th>Description</th>
     <th>Status</th>
+    <th>Created at</th>
     <th>Average Rating</th>
     <th>comments count</th>
     <th>Tags</th>
@@ -25,6 +35,7 @@
       <td><%= "#{post.title} (#{post.topic.title})" %></td>
       <td><%= post.content %></td>
       <td><%= post.marked_as_read?(current_user) ? 'Read' : 'Unread' %></td>
+      <td><%= post.created_at.to_date %></td>
       <td><%= post.average_rating.present? ? "#{sprintf('%.1f', post.average_rating)} stars" : 'N/A' %></td>
       <td><%= post.comments_count %></td>
       <td>
