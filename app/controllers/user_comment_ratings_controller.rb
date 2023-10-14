@@ -25,12 +25,12 @@ class UserCommentRatingsController < ApplicationController
     @topic = Topic.find(params[:topic_id])
     @post = @topic.posts.find(params[:post_id])
     @comment = @post.comments.find(params[:comment_id])
-    @ratings = @comment.user_comment_ratings
+    @ratings = @comment.user_comment_ratings.includes([:user])
   end
 
   private
 
   def user_comment_rating_params
-    params.require(:user_comment_rating).permit(:rating, :comment_id)
+    params.require(:user_comment_rating).permit(:value, :comment_id)
   end
 end
