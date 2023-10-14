@@ -44,7 +44,7 @@ class TagsController < ApplicationController
   end
   def posts
     @tag = Tag.find(params[:id])
-    @posts = @tag.posts
+    @posts = @tag.posts.includes([:topic])
   end
 
   private

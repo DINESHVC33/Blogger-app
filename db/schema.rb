@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_12_061623) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_14_090116) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -79,7 +79,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_12_061623) do
     t.index ["user_id"], name: "index_posts_users_read_statuses_on_user_id"
   end
 
-  create_table "user_comment_ratings", force: :cascade do |t|
+  create_table "ratings", force: :cascade do |t|
     t.integer "post_id", null: false
     t.integer "value"
     t.datetime "created_at", null: false
@@ -102,7 +102,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_12_061623) do
   create_table "user_comment_ratings", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "comment_id", null: false
-    t.integer "rating"
+    t.integer "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["comment_id"], name: "index_user_comment_ratings_on_comment_id"
@@ -131,7 +131,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_12_061623) do
   add_foreign_key "posts", "users"
   add_foreign_key "posts_users_read_statuses", "posts"
   add_foreign_key "posts_users_read_statuses", "users"
-  add_foreign_key "user_comment_ratings", "posts"
+  add_foreign_key "ratings", "posts"
   add_foreign_key "user_comment_ratings", "comments"
   add_foreign_key "user_comment_ratings", "users"
 end

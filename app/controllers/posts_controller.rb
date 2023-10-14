@@ -11,8 +11,8 @@ class PostsController < ApplicationController
   end
 
   def all_posts
-    @posts = Post.left_joins(:ratings, :comments)
-                 .select('posts.*, AVG(user_comment_ratings.value) as average_rating, COUNT(comments.id) as comments_count')
+    @posts = Post.left_joins(:ratings, :comments).includes([:topic]).includes([:tags])
+                 .select('posts.*, AVG(ratings.value) as average_rating, COUNT(comments.id) as comments_count')
                  .group('posts.id')
                  .page(params[:page]).per(10)
   end
@@ -55,7 +55,6 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-
         format.html{redirect_to  topic_posts_path(@topic, @post), notice: 'Post was successfully created.'}
         format.js
       else

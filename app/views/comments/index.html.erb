@@ -28,8 +28,8 @@
            <td> <%= form_for([@topic, @post, comment, UserCommentRating.new], url: topic_post_comment_user_comment_ratings_path(comment.post.topic, comment.post, comment), remote: true )do |f| %>
                <%= f.hidden_field :comment_id, value: comment.id %>
                <div class="form-group">
-                 <%= f.label :rating %>
-                 <%= f.select :rating, (1..5).to_a, prompt: 'Select a rating' %>
+                 <%= f.label :value %>
+                 <%= f.select :value, (1..5).to_a, prompt: 'Select a rating' %>
                </div>
 
                <%= f.submit 'Rate Comment', class: 'btn btn-primary'%>
