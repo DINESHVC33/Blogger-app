@@ -1,6 +1,4 @@
 class TopicsController < ApplicationController
-  #skip_before_action :verify_authenticity_token
-
   before_action :set_topic, only: %i[ show edit update destroy ]
 
   # GET /topics or /topics.json
@@ -39,9 +37,10 @@ class TopicsController < ApplicationController
      respond_to do |format|
       if @topic.save
         format.html { redirect_to topic_url(@topic), notice: "Topic #{@topic.title} was successfully created." }
+        format.json { render 'show' , status: :created }
         #render json: @topic, status: :created
       else
-        #render json: @topic.errors, status: :unprocessable_entity
+        render json: @topic.errors, status: :unprocessable_entity
       end
     end
   end
@@ -51,6 +50,7 @@ class TopicsController < ApplicationController
     respond_to do |format|
       if @topic.update(topic_params)
         format.html { redirect_to topic_url(@topic), notice: "Topic #{@topic.title} was successfully updated." }
+        format.json { render 'show' , status: :created }
         #render json: @topic, status: :ok
 
       else
@@ -66,6 +66,7 @@ class TopicsController < ApplicationController
     @topic.destroy
     respond_to do |format|
       format.html { redirect_to topics_url, notice: "Topic #{@topic.title} was successfully destroyed." }
+      format.json
     end
     #render json: { head: :no_content }
   end
