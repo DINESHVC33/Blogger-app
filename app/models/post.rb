@@ -21,4 +21,8 @@ class Post < ApplicationRecord
     where(created_at: from_date.beginning_of_day..to_date.end_of_day)
   }
 
+  after_create :update_rating_average
+  def update_rating_average
+    update_column(:rating_average, ratings.average(:value))
+  end
 end

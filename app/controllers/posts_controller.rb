@@ -6,8 +6,8 @@ class PostsController < ApplicationController
   # GET /topics/:topic_id/posts or /topics/:topic_id/posts.json
   def index
     @posts = @topic.posts.page(params[:page]).per(3)
-    @comments =Comment.where(post_id: @posts.pluck(:id))
-    @average_ratings = Hash[Rating.group(:post_id).average(:value).map { |k, v| [k, v.round(1)] }]
+    #@comments =Comment.where(post_id: @posts.pluck(:id))
+    #@average_ratings = Hash[Rating.group(:post_id).average(:value).map { |k, v| [k, v.round(1)] }]
   end
 
   def all_posts
@@ -17,13 +17,16 @@ class PostsController < ApplicationController
     from_date = Date.parse(from_date.to_s)
     to_date = Date.parse(to_date.to_s)
 
-    @posts = Post.left_joins(:ratings, :comments)
-                 .includes([:topic])
-                 .includes([:tags])
-                 .select('posts.*, AVG(ratings.value) as average_rating, COUNT(comments.id) as comments_count')
-                 .group('posts.id')
-                 .filter_by_date(from_date, to_date)
-                 .page(params[:page]).per(10)
+    # @posts = Post.left_joins(:ratings, :comments)
+    #              .includes([:topic])
+    #              .includes([:tags])
+    #              .select('posts.*, AVG(ratings.value) as average_rating, COUNT(comments.id) as comments_count')
+    #               .group('posts.id')
+    #              .filter_by_date(from_date, to_date)
+    #              .page(params[:page]).per(10)
+    @posts=Post.includes([:topic],[:tags])
+               .filter_by_date(from_date, to_date)
+               .page(params[:page]).per(10)
 
   end
 
