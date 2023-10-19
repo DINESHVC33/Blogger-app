@@ -11,7 +11,9 @@ gem 'strong_migrations', '~> 0.8'
 gem 'cancancan'
 gem 'jquery-rails'
 gem 'bullet', group: 'development'
-
+group :development do
+  gem 'letter_opener'
+end
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "home"
 gem 'rails', '~> 7.0.7', '>= 7.0.7.2'
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]

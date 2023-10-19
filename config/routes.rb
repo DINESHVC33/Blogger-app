@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users
+
+  devise_for :users, controllers: {
+    registrations: 'users/registrations'
+  }
+  resources :users, only: [:show]
   #devise_for :users, controllers: { sessions: 'users/sessions' }
   get'/posts' , to: 'posts#all_posts' , as: 'all_posts'
   root  to:'home#index'
