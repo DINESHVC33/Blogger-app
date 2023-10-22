@@ -5,8 +5,8 @@ class UserMailer < ApplicationMailer
   #
   #   en.user_mailer.welcome_mail.subject
   #
-  def welcome_mail
-    @user=params[:user]
+  def welcome_mail(user)
+    @user=user
     @greeting = "Hi"
 
     mail(from:"BloggerApp@gmail.com",

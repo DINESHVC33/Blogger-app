@@ -13,7 +13,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
 
     super
-    UserMailer.with(user:current_user).welcome_mail.deliver_later
+    SignupMailerJob.perform_later(current_user)
+    # UserMailer.with(user:current_user).welcome_mail.deliver_later
   end
 
   # GET /resource/edit
