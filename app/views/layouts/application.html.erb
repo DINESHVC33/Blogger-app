@@ -9,8 +9,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Blogger</title>
   <%= javascript_include_tag 'application', 'custom' %>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-  <%= javascript_importmap_tags %>
+ <%= javascript_importmap_tags %>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <style>
       table, th, td {
           border: 1px solid black;
@@ -52,7 +54,10 @@
       <ul class="navbar-nav ml-auto"> <!-- Use ml-auto to push items to the right -->
         <% if user_signed_in? %>
           <li class="nav-item">
-            <%= link_to 'Edit Profile',  edit_user_registration_path, class: "nav-link" %>
+            <%link_to 'Edit Profile',  edit_user_registration_path,class: "nav-link" %>
+            <% link_to 'Edit profile', edit_user_registration_path,class: "nav-link", data: { toggle: 'modal', target: '#exampleModal' } %>
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Edit profile </button>
           </li>
           <li class="nav-item">
             <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class: "nav-link" %>
@@ -65,12 +70,59 @@
             <%= link_to 'Sign up', new_user_registration_path, class: "nav-link" %>
           </li>
         <% end %>
+
       </ul>
     </div>
   </div>
 </nav>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <% if user_signed_in? %>
+        <%= form_with(model: current_user, url: registration_path(current_user), method: :patch, class: 'my-4') do |form| %>
+
+
+          <div class="field">
+            <%= form.label :email %><br />
+            <%= form.email_field :email, autofocus: true, autocomplete: 'email' %>
+          </div>
+
+          <div class="field">
+            <%= form.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+            <%= form.password_field :password, autocomplete: 'new-password' %>
+            <!-- Add minimum_password_length logic if needed -->
+          </div>
+
+          <div class="field">
+            <%= form.label :password_confirmation %><br />
+            <%= form.password_field :password_confirmation, autocomplete: 'new-password' %>
+          </div>
+
+          <div class="field">
+            <%= form.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+            <%= form.password_field :current_password, autocomplete: 'current-password' %>
+          </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <div class="actions">
+                <%= form.submit 'Update' %>
+              </div>
+          <% end %>
+        <%end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="container"><br>
+
   <%= yield %>
 </div>
 

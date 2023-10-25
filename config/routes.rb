@@ -3,10 +3,10 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
-  resources :users, only: [:show]
+  # resources :users, only: [:show]
   #devise_for :users, controllers: { sessions: 'users/sessions' }
   get'/posts' , to: 'posts#all_posts' , as: 'all_posts'
-  root  to:'home#index'
+  root  to:'topics#index'
   resources :topics do
     resources :posts do
       patch 'mark_as_read', on: :member
