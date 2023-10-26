@@ -168,6 +168,7 @@ GEM
     nokogiri (1.15.4-x64-mingw-ucrt)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    pg (1.5.4-x64-mingw-ucrt)
     psych (5.1.0)
       stringio
     public_suffix (5.0.3)
@@ -304,6 +305,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   letter_opener
+  pg (~> 1.5, >= 1.5.4)
   puma (~> 5.0)
   rails (~> 7.0.7, >= 7.0.7.2)
   rails-controller-testing
